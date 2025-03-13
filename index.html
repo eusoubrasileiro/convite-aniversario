@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festa de Aniversário - Daniel e Davi</title>
+    <!-- Add Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,6 +24,31 @@
             overflow-x: hidden;
         }
 
+        .hammer {
+            position: fixed;
+            bottom: -100px;
+            width: 50px;
+            height: 50px;
+            background: url('thor-hammer.svg') no-repeat center/contain;
+            animation: floatHammer 15s ease-in infinite;
+            z-index: -1;
+        }
+
+        @keyframes floatHammer {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-50vh) rotate(360deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
         .invitation-card {
             background: white;
             border-radius: 20px;
@@ -35,12 +61,20 @@
             animation: cardAppear 1s ease-out;
         }
 
-        .invitation-image {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            margin: 10px auto;
-            animation: pulse 2s infinite;
+        @keyframes cardAppear {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .title-section {
+            padding: 20px;
+            margin: -20px -20px 0 -20px;
         }
 
         h1 {
@@ -64,12 +98,37 @@
             font-size: 0.9em;
         }
 
+        .adventure-text {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8em;
+            color: #2a4d65;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            margin: 20px 0;
+            transform: rotate(-2deg);
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px auto;
+        }
+
+        .invitation-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin: 0;
+            animation: pulse 2s infinite;
+        }
+
         .birthday-boys {
             display: flex;
             justify-content: center;
             gap: 40px;
             margin: 15px 0;
             padding: 10px;
+            align-items: center;
         }
 
         .birthday-boy {
@@ -77,6 +136,7 @@
             padding: 15px 25px;
             border-radius: 15px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transform: none;
         }
 
         .birthday-boy:first-child .age-number {
@@ -104,6 +164,12 @@
             letter-spacing: 1px;
         }
 
+        .details {
+            margin: 10px 0;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
         .details p {
             color: #1a365d;
             font-weight: 600;
@@ -116,19 +182,9 @@
             font-size: 1.1em;
         }
 
-        .adventure-text {
-            font-family: 'Bangers', cursive;
-            font-size: 1.8em;
-            color: #2a4d65;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-            letter-spacing: 2px;
-            margin: 20px 0;
-            transform: rotate(-2deg);
-        }
-
         .button {
             display: inline-block;
-            padding: 12px 24px;
+            padding: 10px 20px;
             margin: 8px;
             background-color: var(--secondary-color);
             color: white;
@@ -136,8 +192,6 @@
             border-radius: 25px;
             transition: transform 0.2s, background-color 0.2s;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .button:hover {
@@ -150,13 +204,11 @@
             50% { transform: translateY(-10px); }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
         @media (max-width: 480px) {
+            .invitation-card {
+                padding: 20px;
+            }
+            
             .birthday-boys {
                 gap: 20px;
             }
@@ -173,10 +225,12 @@
 </head>
 <body>
     <div class="invitation-card">
-        <h1>
-            <span class="title-line1">Missão Especial</span>
-            <span class="title-line2">Festa dos Super-Heróis!</span>
-        </h1>
+        <div class="title-section">
+            <h1>
+                <span class="title-line1">Missão Especial</span>
+                <span class="title-line2">Festa dos Super-Heróis!</span>
+            </h1>
+        </div>
         
         <img src="vingadores_aniversário.avif" alt="Tema Vingadores" class="invitation-image">
         
@@ -192,15 +246,32 @@
                 </div>
             </div>
 
-            <p>Quando: <strong>Sábado 22 de Março</strong></p>
-            <p>Horário: <strong>11 horas</strong></p>
+            <p><strong>Sábado 22 de Março</strong></p>
+            <p><strong>11 horas</strong></p>
             <div class="adventure-text">Venha se juntar a esta super aventura!</div>
         </div>
 
         <div class="buttons">
             <a href="https://maps.app.goo.gl/rEW3Z3BeUuZ7p2TK7" class="button" target="_blank">Local da Missão 📍</a>
-            <a href="https://api.whatsapp.com/send/?phone=5531988963436&text&type=phone_number&app_absent=0" class="button" target="_blank">Aceitar Missão ✓</a>
+            <a href="https://api.whatsapp.com/send/?phone=553198715233&text&type=phone_number&app_absent=0" class="button" target="_blank">Aceitar Missão ✓</a>
         </div>
     </div>
+
+    <script>
+        // Create floating hammers
+        function createHammers() {
+            for (let i = 0; i < 15; i++) {
+                const hammer = document.createElement('div');
+                hammer.className = 'hammer';
+                hammer.style.left = `${Math.random() * 100}vw`;
+                hammer.style.animationDelay = `${Math.random() * 15}s`;
+                // Random initial rotation
+                hammer.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(hammer);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', createHammers);
+    </script>
 </body>
 </html> 
