@@ -38,14 +38,22 @@
             overflow-x: hidden;
         }
 
-        .hammer {
+        .hammer, .shield {
             position: fixed;
             bottom: -100px;
             width: 50px;
             height: 50px;
+            z-index: -1;
+        }
+
+        .hammer {
             background: url('thor-hammer.svg') no-repeat center/contain;
             animation: floatHammer 15s ease-in infinite;
-            z-index: -1;
+        }
+
+        .shield {
+            background: url('captain-america-shield.png') no-repeat center/contain;
+            animation: floatShield 12s ease-in infinite;
         }
 
         @keyframes floatHammer {
@@ -63,8 +71,29 @@
             }
         }
 
+        @keyframes floatShield {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-50vh) rotate(-360deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(-720deg);
+                opacity: 0;
+            }
+        }
+
         .invitation-card {
-            background: white;
+            background: linear-gradient(45deg, 
+                rgba(207, 29, 29, 0.1) 0%,    /* Iron Man red */
+                rgba(30, 85, 155, 0.1) 25%,   /* Captain America blue */
+                rgba(0, 148, 48, 0.1) 50%,    /* Hulk green */
+                rgba(182, 129, 24, 0.1) 75%   /* Thor's cape golden */
+            );
+            position: relative;
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             padding: 20px;
@@ -73,6 +102,23 @@
             text-align: center;
             margin: 20px;
             animation: cardAppear 1s ease-out;
+            overflow: hidden;
+        }
+
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(207, 29, 29, 0.15) 0%, transparent 25%),  /* Iron Man */
+                radial-gradient(circle at 80% 80%, rgba(30, 85, 155, 0.15) 0%, transparent 25%),  /* Cap */
+                radial-gradient(circle at 80% 20%, rgba(0, 148, 48, 0.15) 0%, transparent 25%),   /* Hulk */
+                radial-gradient(circle at 20% 80%, rgba(182, 129, 24, 0.15) 0%, transparent 25%); /* Thor */
+            animation: heroGlow 8s ease-in-out infinite;
+            z-index: 0;
         }
 
         @keyframes cardAppear {
@@ -84,6 +130,23 @@
                 transform: scale(1);
                 opacity: 1;
             }
+        }
+
+
+        @keyframes heroGlow {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        .invitation-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .title-section {
@@ -126,6 +189,28 @@
             width: 100%;
             max-width: 400px;
             margin: 10px auto;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a365d 0%, #2a4d65 50%, #457b9d 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: glowPulse 3s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         .invitation-image {
@@ -133,7 +218,10 @@
             max-width: 400px;
             height: auto;
             margin: 0;
-            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 2;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         .birthday-boys {
@@ -255,7 +343,7 @@
                     <div class="name">Daniel</div>
                 </div>
                 <div class="birthday-boy">
-                    <div class="age-number">5</div>
+                    <div class="age-number">3</div>
                     <div class="name">Davi</div>
                 </div>
             </div>
@@ -279,9 +367,15 @@
                 hammer.className = 'hammer';
                 hammer.style.left = `${Math.random() * 100}vw`;
                 hammer.style.animationDelay = `${Math.random() * 15}s`;
-                // Random initial rotation
                 hammer.style.transform = `rotate(${Math.random() * 360}deg)`;
                 document.body.appendChild(hammer);
+
+                const shield = document.createElement('div');
+                shield.className = 'shield';
+                shield.style.left = `${Math.random() * 100}vw`;
+                shield.style.animationDelay = `${Math.random() * 12}s`;
+                shield.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(shield);
             }
         }
 
